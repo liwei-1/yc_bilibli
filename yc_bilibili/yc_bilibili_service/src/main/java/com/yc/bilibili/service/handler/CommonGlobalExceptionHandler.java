@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 @ControllerAdvice
 //优先级 最高的
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CommonGlobalExceptionHandler {
 
+    /**
+     * 全局的异常处理
+     */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public JsonResponse<String> commonExceptionHander(HttpServletRequest request, Exception e) {
