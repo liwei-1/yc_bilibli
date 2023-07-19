@@ -13,4 +13,8 @@ public interface UserDao {
 
     Integer addUserInfo(UserInfo userInfo);
 
+    User getUserById(Long id);
+
+    UserInfo getUserInfoBuUserId(Long userId);
+
 }

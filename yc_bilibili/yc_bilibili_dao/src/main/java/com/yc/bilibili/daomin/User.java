@@ -45,4 +45,7 @@ public class User implements Serializable {
      */
     private String salt;
 
+
+    private UserInfo userInfo;
+
 }

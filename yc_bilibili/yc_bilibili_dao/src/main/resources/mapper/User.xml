@@ -45,4 +45,15 @@
 
     )
 </insert>
+<select id="getUserById" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.User">
+    select * from b_user
+    where id =#{id}
+</select>
+
+
+<select id="getUserInfoBuUserId" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.UserInfo">
+    select * from b_userInfo
+    where userId =#{userId}
+
+</select>
 </mapper>

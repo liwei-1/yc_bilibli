@@ -86,4 +86,12 @@ public class UserService {
         return TokenUtil.generateToken(dbUser.getId());
     }
 
+
+    public User getUserInfo(Long userId){
+        User user = userDao.getUserById(userId);
+        UserInfo userInfo = userDao.getUserInfoBuUserId(userId);
+        user.setUserInfo(userInfo);
+        return user;
+    }
+
 }

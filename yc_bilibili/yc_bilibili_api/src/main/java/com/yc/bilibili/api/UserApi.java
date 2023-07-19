@@ -1,5 +1,6 @@
 package com.yc.bilibili.api;
 
+import com.yc.bilibili.api.support.UserSupport;
 import com.yc.bilibili.daomin.JsonResponse;
 import com.yc.bilibili.daomin.User;
 import com.yc.bilibili.service.UserService;
@@ -12,6 +13,17 @@ public class UserApi {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserSupport userSupport;
+
+
+    @GetMapping("/users")
+    public JsonResponse<User> getUserInfo(){
+        Long userId = userSupport.getCurrentUserId();
+        User user = userService.getUserInfo(userId);
+        return new JsonResponse<>(user);
+    }
 
     /**
      * 获取rsa公钥
