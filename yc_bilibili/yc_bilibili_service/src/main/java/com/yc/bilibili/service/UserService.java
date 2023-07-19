@@ -31,13 +31,16 @@ public class UserService {
         }
         Date now = new Date();
         String salt = String.valueOf(now.getTime());
+        // rsa加密 密码
         String password = user.getPassword();
         String rawPassword;
         try {
+            // 密码解密
             rawPassword = RSAUtil.decrypt(password);
         } catch (Exception e) {
             throw new ConditionException("密码解析失败！");
         }
+        // 通过时间戳生成盐值
         String md5Passwrod = MD5Util.sign(rawPassword, salt, "UTF-8");
         user.setSalt(salt);
         user.setPassword(md5Passwrod);
@@ -58,7 +61,7 @@ public class UserService {
         return userDao.getUserByPhone(phone);
     }
 
-    public String login(User user) {
+    public String login(User user) throws Exception{
         String phone = user.getPhone();
         if (StringUtils.isNullOrEmpty(phone)) {
             throw new ConditionException("手机号不能为空！");
@@ -75,12 +78,12 @@ public class UserService {
             throw new ConditionException("密码解析失败！");
         }
         String salt = dbUser.getSalt();
+        // 加密后的MD5密码
         String md5Passwrod = MD5Util.sign(rawPassword, salt, "UTF-8");
         if (!md5Passwrod.equals(dbUser.getPassword())) {
-            throw new ConditionException("密码解析失败！");
+            throw new ConditionException("密码错误！");
         }
-        TokenUtil tokenUtil = new TokenUtil();
-        return tokenUtil.generateToken(dbUser.getId());
+        return TokenUtil.generateToken(dbUser.getId());
     }
 
 }

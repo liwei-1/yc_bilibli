@@ -5,7 +5,7 @@ public class ConditionException extends RuntimeException{
     //序列版本号
     private static final long serialVersionUID = 1L;
     private String code;
-    private ConditionException(String code,String name){
+    public  ConditionException(String code,String name){
         super(name);
         this.code = code;
     }
