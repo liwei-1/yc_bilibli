@@ -17,8 +17,14 @@ import java.util.Date;
 @Service
 public class UserService {
 
-    @Autowired
+
     private UserDao userDao;
+
+    @Autowired
+    public void setUserDao(UserDao userDao){
+        this.userDao = userDao;
+
+    }
 
     public void addUser(User user) {
         String phone = user.getPhone();
@@ -92,6 +98,16 @@ public class UserService {
         UserInfo userInfo = userDao.getUserInfoBuUserId(userId);
         user.setUserInfo(userInfo);
         return user;
+    }
+
+    public void updateUserInfos(UserInfo userInfo){
+        userInfo.setUpdateTime(new Date());
+        userDao.updateUserInfos(userInfo);
+    }
+
+    public void updateUsers(User user){
+        user.setUpdateTime(new Date());
+        userDao.updateUsers(user);
     }
 
 }

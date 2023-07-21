@@ -7,6 +7,8 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.yc.bilibili.daomin.exception.ConditionException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,6 +16,9 @@ public class TokenUtil {
 
     //签发者
     private static  final String ISSUER = "月初不加班";
+
+    // 时间戳
+    private LocalDateTime localDateTime;
     public static String generateToken(Long userId) throws Exception{
 
         //算法
@@ -23,11 +28,16 @@ public class TokenUtil {
         calendar.setTime(new Date());
         //过期时间30秒
         calendar.add(Calendar.SECOND,30);
+
+
         return JWT.create().withKeyId(String.valueOf(userId))
                 .withIssuer(ISSUER)
                 .withExpiresAt(calendar.getTime())
                 .sign(algorithm);
     }
+
+    // 用户修改密码或者退出，token失效
+
     public static Long verifyToken(String token) {
         try{
             Algorithm algorithm = Algorithm.RSA256(RSAUtil.getPublicKey(),RSAUtil.getPrivateKey());

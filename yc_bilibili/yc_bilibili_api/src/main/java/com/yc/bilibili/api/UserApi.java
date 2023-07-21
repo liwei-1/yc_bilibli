@@ -3,6 +3,7 @@ package com.yc.bilibili.api;
 import com.yc.bilibili.api.support.UserSupport;
 import com.yc.bilibili.daomin.JsonResponse;
 import com.yc.bilibili.daomin.User;
+import com.yc.bilibili.daomin.UserInfo;
 import com.yc.bilibili.service.UserService;
 import com.yc.bilibili.service.util.RSAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,4 +58,27 @@ public class UserApi {
         return new JsonResponse<>(token);
     }
 
+    /**
+     * 修改用户详情信息
+     * @param userInfo
+     * @return
+     */
+    @PutMapping("/user-infos")
+    public JsonResponse<String> updateUserInfos(@RequestBody UserInfo userInfo){
+        Long userId = userSupport.getCurrentUserId();
+        userInfo.setUserId(userId);
+        userService.updateUserInfos(userInfo);
+        return JsonResponse.success();
+    }
+
+    /**
+     * 修改用户
+     * @param user
+     * @return
+     */
+    @PutMapping("/users")
+    public JsonResponse<String> updateUsers(@RequestBody User user){
+        userService.updateUsers(user);
+        return JsonResponse.success();
+    }
 }
