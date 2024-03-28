@@ -17,8 +17,10 @@ public class UserApi {
 
     @Autowired
     private UserSupport userSupport;
-
-
+    /**
+     * 根据token获取用户信息
+     * @return user
+     */
     @GetMapping("/users")
     public JsonResponse<User> getUserInfo(){
         Long userId = userSupport.getCurrentUserId();

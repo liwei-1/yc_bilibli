@@ -35,6 +35,7 @@ public class UserService {
         if (dbUser != null) {
             throw new ConditionException("改手机已经注册！");
         }
+        // 用户密码需要MD5的加密
         Date now = new Date();
         String salt = String.valueOf(now.getTime());
         // rsa加密 密码
@@ -67,15 +68,26 @@ public class UserService {
         return userDao.getUserByPhone(phone);
     }
 
+    public User getUserByUserInfo(User user) {
+        return userDao.getUserByUserInfo(user);
+    }
+
     public String login(User user) throws Exception{
         String phone = user.getPhone();
-        if (StringUtils.isNullOrEmpty(phone)) {
-            throw new ConditionException("手机号不能为空！");
+        String email = user.getEmail();
+        User dbUser =null;
+        if (StringUtils.isNullOrEmpty(phone) && StringUtils.isNullOrEmpty(email)) {
+            throw new ConditionException("手机号和邮箱不能同时为空！");
+        }else {
+            dbUser = this.getUserByUserInfo(user);
+            if (dbUser == null) {
+                throw new ConditionException("当前用户不存在！");
+            }
         }
-        User dbUser = this.getUserByPhone(phone);
-        if (dbUser == null) {
-            throw new ConditionException("当前用户不存在！");
-        }
+        //        if (StringUtils.isNullOrEmpty(phone)) {
+        //       throw new ConditionException("手机号不能为空！");
+        //        }
+
         String passwrod = user.getPassword();
         String rawPassword;
         try {

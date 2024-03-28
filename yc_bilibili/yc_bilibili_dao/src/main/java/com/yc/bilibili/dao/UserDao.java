@@ -9,6 +9,8 @@ public interface UserDao {
 
     User  getUserByPhone(String phone);
 
+    User getUserByUserInfo(User user);
+
     Integer addUser(User user);
 
     Integer addUserInfo(UserInfo userInfo);

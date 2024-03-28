@@ -11,6 +11,6 @@
 
     <select id="getByType" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.FollowingGroup">
     select * from b_following_group
-    where type = #{type}
+    where `type` = #{type}
 </select>
 </mapper>

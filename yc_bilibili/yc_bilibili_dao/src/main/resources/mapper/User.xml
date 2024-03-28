@@ -8,6 +8,18 @@
         from b_user
         where phone = #{phone}
     </select>
+    <select id="getUserByUserInfo" parameterType="com.yc.bilibili.daomin.User" resultType="com.yc.bilibili.daomin.User">
+        select *
+        from b_user
+        <where>
+            <if test="phone != null and phone != ''">
+                phone = #{phone}
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email}
+            </if>
+        </where>
+    </select>
     <insert id="addUser" parameterType="com.yc.bilibili.daomin.User" useGeneratedKeys="true" keyProperty="id">
         insert into b_user(phone,
                            email,
