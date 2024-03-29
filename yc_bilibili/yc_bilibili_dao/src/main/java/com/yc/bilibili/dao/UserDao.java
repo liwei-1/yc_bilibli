@@ -4,6 +4,9 @@ import com.yc.bilibili.daomin.User;
 import com.yc.bilibili.daomin.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Set;
+
 @Mapper
 public interface UserDao {
 
@@ -23,4 +26,11 @@ public interface UserDao {
     Integer updateUserInfos(UserInfo userInfo);
 
     Integer updateUsers(User user);
+
+    /**
+     * 感觉关注用户id查询 用户详细信息
+     * @param followingIdSet
+     * @return UserInfo
+     */
+    List<UserInfo> getUserInfoByUserIdList(Set<Long> followingIdSet);
 }

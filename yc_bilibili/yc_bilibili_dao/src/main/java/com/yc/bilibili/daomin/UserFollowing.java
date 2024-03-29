@@ -35,4 +35,9 @@ public class UserFollowing {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     * 用户信息
+     */
+    private UserInfo userInfo;
 }

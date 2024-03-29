@@ -3,6 +3,7 @@ package com.yc.bilibili.daomin;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户关注分组表实体类
@@ -39,4 +40,9 @@ public class FollowingGroup {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 关注者信息
+     */
+    private List<UserInfo> followingUserInfoList;
 }
