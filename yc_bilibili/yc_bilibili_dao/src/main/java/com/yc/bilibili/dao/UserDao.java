@@ -1,10 +1,12 @@
 package com.yc.bilibili.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yc.bilibili.daomin.User;
 import com.yc.bilibili.daomin.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Mapper
@@ -33,4 +35,8 @@ public interface UserDao {
      * @return UserInfo
      */
     List<UserInfo> getUserInfoByUserIdList(Set<Long> followingIdSet);
+
+    Integer pageCountUserInfos(Map<String,Object> params);
+
+    List<UserInfo> pageListUserInfos(Map<String,Object> params);
 }

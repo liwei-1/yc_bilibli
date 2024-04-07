@@ -1,13 +1,19 @@
 package com.yc.bilibili.api;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yc.bilibili.api.support.UserSupport;
 import com.yc.bilibili.daomin.JsonResponse;
+import com.yc.bilibili.daomin.PageResult;
 import com.yc.bilibili.daomin.User;
 import com.yc.bilibili.daomin.UserInfo;
+import com.yc.bilibili.service.UserFollowingService;
 import com.yc.bilibili.service.UserService;
 import com.yc.bilibili.service.util.RSAUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserApi {
@@ -17,6 +23,9 @@ public class UserApi {
 
     @Autowired
     private UserSupport userSupport;
+
+    @Autowired
+    private UserFollowingService userFollowingService;
     /**
      * 根据token获取用户信息
      * @return user
@@ -83,4 +92,32 @@ public class UserApi {
         userService.updateUsers(user);
         return JsonResponse.success();
     }
+
+    /**
+     * 用户分页查询
+     * @param no 页码
+     * @param size 页码个数
+     * @param nick 名称
+     * @return PageResult<UserInfo>
+     *    用@RequestParam修饰 必须传参
+     */
+    @GetMapping("/user-infos")
+    public JsonResponse<PageResult<UserInfo>> pageListUserInfos(@RequestParam  Integer no,@RequestParam Integer size,String nick){
+        Long userId = userSupport.getCurrentUserId();
+        //
+        JSONObject params = new JSONObject();
+        params.put("no",no);
+        params.put("size",size);
+        params.put("nick",nick);
+        params.put("userId",userId);
+        // 分页查询用户信息
+        PageResult<UserInfo> result = userService.pageListUserInfos(params);
+        // 判断用户有没有被当前用户关注 ====
+        if(result.getTotal() > 0 ){
+            List<UserInfo> userInfoList = userFollowingService.checkFollowingStatus(result.getList(),userId);
+            result.setList(userInfoList);
+        }
+        return new JsonResponse<>(result);
+    }
+
 }
