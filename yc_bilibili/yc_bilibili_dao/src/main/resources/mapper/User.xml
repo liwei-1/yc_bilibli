@@ -102,9 +102,9 @@
         select *
         from b_user_info
         where 1=1
-        <if test="userIdList != null and userIdList.size >0">
+        <if test="followingIdSet != null and followingIdSet.size >0">
             and userId in
-            <foreach collection="userIdList" item="userId" index="index" open="(" close=")" separator=",">
+            <foreach collection="followingIdSet" item="userId" index="index" open="(" close=")" separator=",">
                 #{userId}
             </foreach>
         </if>

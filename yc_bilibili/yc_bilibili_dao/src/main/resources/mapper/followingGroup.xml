@@ -9,7 +9,7 @@
         where id = #{id}
     </select>
 
-    <select id="getByType" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.FollowingGroup">
+    <select id="getByType" parameterType="java.lang.String" resultType="com.yc.bilibili.daomin.FollowingGroup">
         select *
         from b_following_group
         where `type` = #{type}

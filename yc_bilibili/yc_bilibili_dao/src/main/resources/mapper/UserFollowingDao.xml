@@ -14,7 +14,7 @@
             userId,
             followingId,
             groupId,
-            creatTime
+            createTime
         ) values (
             #{userId},
             #{followingId},
