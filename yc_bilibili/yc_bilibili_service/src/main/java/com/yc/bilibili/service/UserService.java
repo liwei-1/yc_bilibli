@@ -140,7 +140,7 @@ public class UserService {
         Integer no = params.getInteger("no");
         Integer size = params.getInteger("size");
         // 起始  展示多少条数据
-        params.put("star",(no-1)*size);
+        params.put("start",(no-1)*size);
         params.put("limit",size);
         Integer total = userDao.pageCountUserInfos(params);
         List<UserInfo> list = new ArrayList<>();
