@@ -52,4 +52,9 @@ public class UserInfo implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 互关标识  true  false
+     */
+    private Boolean followed;
+
 }

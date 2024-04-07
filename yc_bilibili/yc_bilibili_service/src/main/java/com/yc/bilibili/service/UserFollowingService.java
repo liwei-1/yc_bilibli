@@ -96,5 +96,43 @@ public class UserFollowingService {
         return result;
     }
 
+    public List<UserFollowing> getUserFans(Long userId){
+        List<UserFollowing> fansList = userFollowingDao.getUserFans(userId);
+        Set<Long> followingIdSet = fansList.stream().map(UserFollowing::getUserId).collect(Collectors.toSet());
+        List<UserInfo> userInfoList = new ArrayList<>();
+        if(followingIdSet.size() > 0){
+            userInfoList = userService.getUserInfoByUserIdList(followingIdSet);
 
+        }
+        List<UserFollowing> followingList = userFollowingDao.getUserFollowingList(userId);
+        for(UserFollowing fan:fansList){
+            for(UserInfo userInfo:userInfoList){
+                if(fan.getUserId().equals(userInfo.getUserId())){
+                    userInfo.setFollowed(false);
+                    fan.setUserInfo(userInfo);
+                }
+            }
+            for(UserFollowing following:followingList){
+                // 判断是否互粉
+                if(following.getFollowingId().equals(following.getUserId())){
+                    fan.getUserInfo().setFollowed(true);
+                }
+            }
+        }
+        return fansList;
+
+    }
+
+
+    public Long addUserFollowingGroup(FollowingGroup followingGroup) {
+        followingGroup.setCreateTime(new Date());
+        followingGroup.setType(UserConstant.USER_FOLLOWING_GROUP_TYPE_USER);
+         followingGroupService.addUserFollowingGroup(followingGroup);
+        return followingGroup.getId();
+    }
+
+
+    public List<FollowingGroup> getUserFollowingGroups(Long userId) {
+        return followingGroupService.getUserFollowingGroups(userId);
+    }
 }

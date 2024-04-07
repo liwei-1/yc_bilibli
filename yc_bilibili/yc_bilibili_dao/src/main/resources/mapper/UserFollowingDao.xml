@@ -27,5 +27,11 @@
         where userId = #{userId}
     </select>
 
+    <select id="getUserFans" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.UserFollowing">
+        select * from b_user_following
+        where followingId = #{userId}
+    </select>
+
+
 </mapper>
 

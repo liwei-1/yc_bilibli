@@ -26,5 +26,8 @@ public interface UserFollowingDao {
      * @return
      */
     List<UserFollowing> getUserFollowingList(Long userId);
+
+    List<UserFollowing> getUserFans(Long userId);
+
 }
 
