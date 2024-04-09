@@ -32,13 +32,13 @@ public class UserMomentsService {
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
 
-    public void addUserMoments(UserMoment userMoment) throws RemotingException, InterruptedException, MQClientException {
+    public void addUserMoments(UserMoment userMoment) throws Exception {
         userMoment.setCreateTime(new Date());
         userMomentsDao.addUserMoments(userMoment);
         //获取mq 生产者和消费者
         DefaultMQProducer producer = (DefaultMQProducer)applicationContext.getBean("momentsProducer");
         Message msg = new Message(UserMomentsConstant.TOPIC_MOMENTS, JSONObject.toJSONString(userMoment).getBytes(StandardCharsets.UTF_8));
-        RocketMQUtil.asynSendMsg(producer,msg);
+        RocketMQUtil.syncSendMsg(producer,msg);
     }
 
     public List<UserMoment> getUserMomentList(Long userId) {

@@ -31,7 +31,7 @@ public class UserMomentsApi {
      * 用户发布动态接口
      */
     @PostMapping("/user-moments")
-    public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws RemotingException, InterruptedException, MQClientException {
+    public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws Exception {
         Long userId = userSupport.getCurrentUserId();
         userMoment.setUserId(userId);
         userMomentsService.addUserMoments(userMoment);
