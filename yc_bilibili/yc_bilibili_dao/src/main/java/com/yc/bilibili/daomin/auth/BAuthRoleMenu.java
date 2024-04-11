@@ -31,5 +31,10 @@ public class BAuthRoleMenu implements Serializable {
      */
     private Date createTime;
 
+    /**
+     *  页面访问
+     */
+    private BAuthMenu bAuthMenu;
+
 }
 

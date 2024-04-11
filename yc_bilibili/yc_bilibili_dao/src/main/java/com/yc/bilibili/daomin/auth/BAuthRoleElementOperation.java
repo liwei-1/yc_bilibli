@@ -28,6 +28,9 @@ public class BAuthRoleElementOperation implements Serializable {
      */
     private Date createTime;
 
-    private BAuthRoleElementOperation authRoleElementOperation;
+    /**
+     * 页面元素操作
+     */
+    private BAuthElementOperation authElementOperation;
 }
 
