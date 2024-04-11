@@ -22,7 +22,7 @@
         from b_auth_role_menu barm
         left join b_auth_menu bam on barm.menuId = bam.id
         where barm.roleId in
-        <foreach collection="roleIdSet" index="index" close="(" open=")" separator=",">
+        <foreach collection="roleIdSet" item="roleId" index="index"  open="(" close=")"  separator=",">
             #{roleIdSet}
         </foreach>
     </select>

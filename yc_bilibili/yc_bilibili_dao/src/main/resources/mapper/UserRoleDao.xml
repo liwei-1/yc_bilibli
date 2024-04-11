@@ -4,7 +4,7 @@
 
 <mapper namespace="com.yc.bilibili.dao.UserRoleDao">
     <select id="getUserRoleByUserId" parameterType="java.lang.Long" resultType="com.yc.bilibili.daomin.auth.BUserRole">
-        select ur.*,
+        select bur.*,
                bar.name roleName,
                bar.code roleCode
         from b_user_role bur
