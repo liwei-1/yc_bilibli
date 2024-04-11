@@ -19,7 +19,7 @@ public class UserAuthService {
 
     public UserAuthorities getUserAuthorities(Long userId) {
         List<BUserRole> authRoleList = userRoleService.getUserRoleByUserId(userId);
-        Set<Long> roleIdSet = authRoleList.stream().map(BUserRole::getUserId).collect(Collectors.toSet());
+        Set<Long> roleIdSet = authRoleList.stream().map(BUserRole::getRoleId).collect(Collectors.toSet());
         //查询按钮操作权限
         List<BAuthRoleElementOperation> authRoleElementOperationList = authRoleService.getRoleElementOperations(roleIdSet);
         //查询页面权限

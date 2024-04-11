@@ -24,7 +24,7 @@
         left join b_auth_element_operation baeo on bareo.elementOperationId = baeo.id
         where bareo.roleId in
         <foreach collection="roleIdSet" item="roleId" index="index" open="(" close=")" separator=",">
-            #{roleIdSet}
+            #{roleId}
         </foreach>
     </select>
 </mapper>

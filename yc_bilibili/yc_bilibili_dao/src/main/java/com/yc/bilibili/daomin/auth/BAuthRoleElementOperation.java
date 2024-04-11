@@ -1,5 +1,7 @@
 package com.yc.bilibili.daomin.auth;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -9,6 +11,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2024-04-10 15:36:05
  */
+@Data
 public class BAuthRoleElementOperation implements Serializable {
     private static final long serialVersionUID = -41126603481558702L;
     /**
