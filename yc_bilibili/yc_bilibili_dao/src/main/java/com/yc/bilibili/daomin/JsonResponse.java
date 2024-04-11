@@ -1,5 +1,9 @@
 package com.yc.bilibili.daomin;
 
+/**
+ * 返回格式
+ * @param <T>
+ */
 public class JsonResponse<T> {
 
     private String code;
