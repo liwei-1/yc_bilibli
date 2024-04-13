@@ -3,6 +3,8 @@ package com.yc.bilibili.api;
 import com.yc.bilibili.api.support.UserSupport;
 import com.yc.bilibili.daomin.JsonResponse;
 import com.yc.bilibili.daomin.UserMoment;
+import com.yc.bilibili.daomin.annotation.ApiLimitedRole;
+import com.yc.bilibili.daomin.constant.AuthRoleConstant;
 import com.yc.bilibili.service.UserMomentsService;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.remoting.exception.RemotingException;
@@ -30,6 +32,7 @@ public class UserMomentsApi {
     /**
      * 用户发布动态接口
      */
+    @ApiLimitedRole(limitedRoleCodeList = {AuthRoleConstant.ROLE_LV0})
     @PostMapping("/user-moments")
     public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws Exception {
         Long userId = userSupport.getCurrentUserId();

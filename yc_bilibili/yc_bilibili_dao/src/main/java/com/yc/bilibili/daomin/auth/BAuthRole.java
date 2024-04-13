@@ -35,15 +35,6 @@ public class BAuthRole implements Serializable {
      */
     private Date updatetime;
 
-    /**
-     * 角色名称
-     */
-    private String roleName;
-
-    /**
-     * 角色code
-     */
-    private String roleCode;
 
 }
 
