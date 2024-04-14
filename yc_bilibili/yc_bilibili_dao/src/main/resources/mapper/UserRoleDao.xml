@@ -11,4 +11,11 @@
                  left join b_auth_role bar on bar.id = bur.roleId
         where bur.userId = #{userId}
     </select>
+    <insert id="addUserRole" parameterType="com.yc.bilibili.daomin.auth.BUserRole">
+        insert into b_user_role(userId, roleId,createTime)
+        values (
+            #{userId}, #{roleId}, #{createTime}
+            )
+
+    </insert>
 </mapper>

@@ -14,4 +14,5 @@ public interface UserRoleDao {
     List<BUserRole> getUserRoleByUserId(Long userId);
 
 
+    Integer addUserRole(BUserRole bUserRole);
 }

@@ -1,5 +1,7 @@
 package com.yc.bilibili.service;
 
+import com.yc.bilibili.dao.AuthRoleDao;
+import com.yc.bilibili.daomin.auth.BAuthRole;
 import com.yc.bilibili.daomin.auth.BAuthRoleElementOperation;
 import com.yc.bilibili.daomin.auth.BAuthRoleMenu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import java.util.Set;
 
 @Service
 public class AuthRoleService {
+
+    @Autowired
+    private AuthRoleDao authRoleDao;
 
 
     @Autowired
@@ -26,5 +31,9 @@ public class AuthRoleService {
 
     public List<BAuthRoleMenu> getRoleMenus(Set<Long> roleIdSet) {
         return authRoleMenuService.getRoleMenus(roleIdSet);
+    }
+
+    public BAuthRole getRoleByCode(String code) {
+        return authRoleDao.getRoleByCode(code);
     }
 }

@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.bilibili.dao.AuthRoleDao">
+
+    <select id="getRoleByCode" parameterType="java.lang.String" resultType="com.yc.bilibili.daomin.auth.BAuthRole">
+        select * from b_auth_role
+        where code =#{code}
+    </select>
+</mapper>

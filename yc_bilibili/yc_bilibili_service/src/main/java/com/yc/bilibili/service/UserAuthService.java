@@ -1,6 +1,7 @@
 package com.yc.bilibili.service;
 
 import com.yc.bilibili.daomin.auth.*;
+import com.yc.bilibili.daomin.constant.AuthRoleConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,13 @@ public class UserAuthService {
         userAuthorities.setRoleMenuList(authRoleMenuList);
         userAuthorities.setRoleElementOperationList(authRoleElementOperationList);
         return userAuthorities;
+    }
+
+    public void addUserDefaulfRole(Long id) {
+        BUserRole bUserRole = new BUserRole();
+        BAuthRole role = authRoleService.getRoleByCode(AuthRoleConstant.ROLE_LV0);
+        bUserRole.setUserId(id);
+        bUserRole.setRoleId(role.getId());
+        userRoleService.addUserRole(bUserRole);
     }
 }

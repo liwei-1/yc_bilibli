@@ -13,6 +13,8 @@ import com.yc.bilibili.service.util.RSAUtil;
 import com.yc.bilibili.service.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +33,10 @@ public class UserService {
 
     }
 
+    @Autowired
+    public UserAuthService userAuthService;
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class, RuntimeException.class})
     public void addUser(User user) {
         String phone = user.getPhone();
         if (StringUtils.isNullOrEmpty(phone)) {
@@ -66,6 +72,8 @@ public class UserService {
         userInfo.setGender(UserConstant.GENDER_UNKNOW);
         userInfo.setCreateTime(now);
         userDao.addUserInfo(userInfo);
+        // 添加默认角色权限
+        userAuthService.addUserDefaulfRole(user.getId());
 
     }
 
