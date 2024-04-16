@@ -125,4 +125,19 @@
         order by id desc
         limit #{start},#{limit}
     </select>
+
+    <delete id="deleteRefreshToken">
+        delete
+        from b_refresh_token
+        where refreshToken = #{refreshToken}
+    </delete>
+    <insert id="addRefreshToken">
+        insert into b_refresh_token (userId, refreshToken, createTime)
+        values (#{userId}, #{refreshToken}, #{createTime})
+    </insert>
+
+    <select id="getRefreshTokenDetail" parameterType="java.lang.String" resultType="com.yc.bilibili.daomin.RefreshTokenDetail">
+        select * from b_refresh_token
+        where refreshToken = #{refreshToken};
+    </select>
 </mapper>

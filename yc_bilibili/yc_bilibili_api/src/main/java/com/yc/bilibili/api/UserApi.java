@@ -13,7 +13,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 public class UserApi {
@@ -118,6 +122,40 @@ public class UserApi {
             result.setList(userInfoList);
         }
         return new JsonResponse<>(result);
+    }
+
+    /**
+     * 登录双token验证 token和refreshToken
+     * @param user
+     * @return
+     * @throws Exception
+     */
+
+    @PostMapping("/user-dts")
+    public JsonResponse<Map<String, Object>> loginForDts(@RequestBody User user) throws Exception {
+        Map<String,Object> map = userService.loginForDts(user);
+        return new JsonResponse<>(map);
+    }
+
+    /**
+     * 用户退出登录
+     */
+    @DeleteMapping("/refresh-tokens")
+    public JsonResponse<String> logout(HttpServletRequest request){
+        String refreshToken = request.getHeader("refreshToken");
+        Long userId = userSupport.getCurrentUserId();
+        userService.logout(refreshToken,userId);
+        return JsonResponse.success();
+    }
+
+    /**
+     * 刷新token令牌
+     */
+    @PostMapping("/access-tokens")
+    public JsonResponse<String> refreshAccessToken(HttpServletRequest request) throws Exception {
+        String  refreshToken = request.getHeader("refreshToken");
+        String accessToken = userService.refreshAccessToken(refreshToken);
+        return  new JsonResponse<>(accessToken);
     }
 
 }

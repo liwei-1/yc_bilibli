@@ -20,14 +20,13 @@ public class TokenUtil {
     // 时间戳
     private LocalDateTime localDateTime;
     public static String generateToken(Long userId) throws Exception{
-
         //算法
         Algorithm algorithm = Algorithm.RSA256(RSAUtil.getPublicKey(),RSAUtil.getPrivateKey());
         //时间
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         //过期时间30秒
-        calendar.add(Calendar.SECOND,3000);
+        calendar.add(Calendar.HOUR,1);
         return JWT.create().withKeyId(String.valueOf(userId))
                 .withIssuer(ISSUER)
                 .withExpiresAt(calendar.getTime())
@@ -49,5 +48,25 @@ public class TokenUtil {
             throw new ConditionException("非法用户Token！");
         }
 
+    }
+
+    /**
+     *  RefreshToken  7天
+     * @param id  用户Id
+     * @return refreshToken
+     * @throws Exception 异常
+     */
+    public static String generateRefreshToken(Long id) throws Exception{
+        //算法
+        Algorithm algorithm = Algorithm.RSA256(RSAUtil.getPublicKey(),RSAUtil.getPrivateKey());
+        //时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        //过期时间30秒
+        calendar.add(Calendar.DAY_OF_MONTH,7);
+        return JWT.create().withKeyId(String.valueOf(id))
+                .withIssuer(ISSUER)
+                .withExpiresAt(calendar.getTime())
+                .sign(algorithm);
     }
 }
