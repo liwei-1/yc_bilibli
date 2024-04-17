@@ -69,4 +69,8 @@ public class TokenUtil {
                 .withExpiresAt(calendar.getTime())
                 .sign(algorithm);
     }
+
+    public static void verifyRefreshToken(String refreshToken) {
+        TokenUtil.verifyToken(refreshToken);
+    }
 }

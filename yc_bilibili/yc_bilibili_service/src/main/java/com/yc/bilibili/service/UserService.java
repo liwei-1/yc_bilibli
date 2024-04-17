@@ -208,6 +208,8 @@ public class UserService {
         if(refreshTokenDetail == null ){
             throw new ConditionException("555","token过期");
         }
+        // 验证refresh合法性
+        TokenUtil.verifyRefreshToken(refreshToken);
         Long userId = refreshTokenDetail.getUserId();
         return  TokenUtil.generateRefreshToken(userId);
     }
